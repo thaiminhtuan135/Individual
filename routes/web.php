@@ -22,3 +22,10 @@ Route::get('tuan', function () {
 Route::get('admin', function () {
     return view('include.layouts.admin');
 });
+Route::group([
+    'prefix' => 'user'
+], function () {
+    Route::get('admin', function () {
+        return view('include.layouts.admin');
+    });
+});

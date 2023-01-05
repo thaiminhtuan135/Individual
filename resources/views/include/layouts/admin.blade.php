@@ -36,9 +36,17 @@
 <body>
 @include('include.admin.sidebar')
 <div id="app" class="home">
-    <div class="body-mr text-color">
-{{--        <loader></loader>--}}
-        <custom-input></custom-input>
+    <header>
+        <div class="header">header</div>
+    </header>
+    <div class="body-mr text-color body-frame mt-2">
+        <div class="card-body">
+            @yield('content')
+            <div>tuan</div>
+
+        </div>
+        {{--        <loader></loader>--}}
+        {{--        <custom-input></custom-input>--}}
     </div>
     {{--    @include('include.admin.header')--}}
     {{--    <div class="bg-arc-sp"></div>--}}
