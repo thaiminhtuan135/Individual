@@ -42,23 +42,18 @@
     <div class="body-mr text-color body-frame mt-2">
         <div class="card-body">
             @yield('content')
-            <div>tuan</div>
-
+{{--            <custom-input></custom-input>--}}
+{{--                    <loader flag-show="true"></loader>--}}
         </div>
-        {{--        <loader></loader>--}}
-        {{--        <custom-input></custom-input>--}}
+{{--                <custom-input></custom-input>--}}
     </div>
-    {{--    @include('include.admin.header')--}}
-    {{--    <div class="bg-arc-sp"></div>--}}
     {{--            @vite('resources/js/coreui.bundle.min.js')--}}
 
     <div class="page-title-sp">
         @yield('title')
     </div>
-    <!-- <div class="body-frame"></div> -->
-    @yield('content')
     @if (session()->get('Message.flash'))
-        <notyf :data="{{json_encode(session()->get('Message.flash')[0])}}"></notyf>
+        <popup-alert :data="{{json_encode(session()->get('Message.flash')[0])}}"></popup-alert>
     @endif
     @php
         session()->forget('Message.flash');

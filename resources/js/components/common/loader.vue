@@ -1,5 +1,5 @@
 <template>
-        <div class="loading">
+        <div class="loading" v-if="flagShow">
             <div style="--value : 1"></div>
             <div style="--value : 2"></div>
             <div style="--value : 3"></div>
@@ -18,7 +18,7 @@ export default {
     name: "loader",
     props : {
         flagShow :{
-            type : String
+            type : Boolean
         }
     },
     methods: {},

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\CompanyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,4 +29,5 @@ Route::group([
     Route::get('admin', function () {
         return view('include.layouts.admin');
     });
+    Route::resource('company', CompanyController::class);
 });

@@ -5,12 +5,12 @@
     height: 50px;
     padding: 0 20px;
     transition: 0.25s ease;
-    background-color: #E4E9F7;
+    background-color: #fff;
 }
 
 .form-input:focus {
     border-color: #6a5af9;
-    background-color: #E4E9F7;
+    //background-color: #E4E9F7;
 
 }
 
@@ -32,10 +32,10 @@
 }
 .form-input:not(:placeholder-shown) + .form-label,
 .form-input:focus + .form-label{
-    top: -15px;
-    padding: 10px 5px 0 5px;
+    top: -8px;
+    padding: 5px 5px 0px 5px;
     display: inline-block;
-    background-color: #E4E9F7;
+    background-color: #fff;
     color: darkolivegreen;
 }
 

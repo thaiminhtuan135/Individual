@@ -3,24 +3,42 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-
+import CoreuiVue from '@coreui/vue'
 import './bootstrap';
 import { createApp } from 'vue';
-
-/**
- * Next, we will create a fresh Vue application instance. You may then begin
- * registering components with the application instance so they are ready
- * to use in your application's views. An example is included for you.
- */
+import { configure, defineRule } from "vee-validate";
+import VueSweetalert2 from "vue-sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
+configure({
+    validateOnBlur: true,
+    validateOnChange: true,
+    validateOnInput: true,
+    validateOnModelUpdate: true,
+});
 
 const app = createApp({});
+app.use(CoreuiVue);
+app.use(VueSweetalert2);
+defineRule('password_rule', value => {
+    return /^[A-Za-z0-9]*$/i.test(value);
+});
 
-import ExampleComponent from './components/ExampleComponent.vue';
+
 import Loader from './components/common/loader.vue';
 import CustomInput from './components/common/customInput.vue';
-app.component('example-component', ExampleComponent);
+import PopupAlert from './components/common/popupAlert.vue';
+
+import ExampleComponent from './components/ExampleComponent.vue';
+import CreateCompany from "./components/company/create.vue";
+
+
 app.component('loader', Loader);
 app.component('custom-input', CustomInput);
+app.component('popup-alert', PopupAlert);
+
+app.component('example-component', ExampleComponent);
+app.component('create-company', CreateCompany);
+
 
 /**
  * The following block of code may be used to automatically register your
