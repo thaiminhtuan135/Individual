@@ -39,7 +39,7 @@
             </form>
         </VeeForm>
     </CCard>
-<!--    <loader :flag-show="flagShowLoader"></loader>-->
+    <loader :flag-show="flagShowLoader"></loader>
 </template>
 
 <script>
@@ -88,6 +88,10 @@ export default {
         configure({
             generateMessage: localize(messError),
         });
+        setTimeout(() => console.log('1'), 0);
+        console.log('2');
+        console.log('3');
+
     },
     props: ["data"],
     components: {
@@ -116,7 +120,11 @@ export default {
         },
         onSubmit() {
                 this.flagShowLoader = true;
-                this.$refs.formData.submit();
+                setTimeout(this.submit,2000);
+                // this.$refs.formData.submit();
+        },
+        submit() {
+            this.$refs.formData.submit();
         },
     }
 }
