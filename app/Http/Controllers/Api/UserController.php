@@ -38,12 +38,18 @@ class UserController extends BaseController
      */
     public function create()
     {
-        $deparments = DB::table("departments")->get();
-        $users_status = DB::table("users_status")->get();
+        $departments = DB::table("departments")->select(
+            'id as value',
+                    'name as label'
+        )->get();
+        $users_status = DB::table("users_status")->select(
+            'id as value',
+            'name as label'
+        )->get();
 
-        if ($deparments && $users_status) {
+        if ($departments && $users_status) {
             return response()->json([
-                'deparments' => $deparments,
+                'departments' => $departments,
                 'users_status' => $users_status,
             ], StatusCode::OK);
         }
