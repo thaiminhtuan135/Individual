@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\StatusCode;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Faker\Provider\Base;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends BaseController
 {
@@ -36,7 +38,19 @@ class UserController extends BaseController
      */
     public function create()
     {
-        //
+        $deparments = DB::table("departments")->get();
+        $users_status = DB::table("users_status")->get();
+
+        if ($deparments && $users_status) {
+            return response()->json([
+                'deparments' => $deparments,
+                'users_status' => $users_status,
+            ], StatusCode::OK);
+        }
+
+        return response()->json([
+            'success' => false,
+        ], StatusCode::BAD_REQUEST);
     }
 
     /**
@@ -94,4 +108,6 @@ class UserController extends BaseController
     {
         //
     }
+
+
 }
