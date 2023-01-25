@@ -18,6 +18,13 @@ class UserController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
+    private $user;
+
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
+
     public function index()
     {
         $user = User::join('departments', 'users.department_id', '=', 'departments.id')
@@ -68,49 +75,42 @@ class UserController extends BaseController
      */
     public function store(Request $request)
     {
-//        $validated = $request->validate([
+//        $validator = Validator::make($request->all(), [
 //            "status_id" => "required",
 //            "username" => "required",
 //            "name" => "required",
 //            "email" => "required|email",
-//            "department_id" => "required",
-//            "password" => "required|confirmed",
-//        ],[
+//            "departments_id" => "required",
+//            "password" => "required",
+//            "password_old" => "required|same:password",
+//
+//        ], [
 //            "status_id.required" => "Nhập tình trạng",
 //            "username.required" => "Nhập tên tài khoản",
 //            "name.required" => "Nhập họ và tên",
 //            "email.required" => "Nhập email",
 //            "email.email" => "Email không hợp lệ",
-//            "department_id.required" => "Nhập phòng ban",
+//            "departments_id.required" => "Nhập phòng ban",
 //            "password.required" => "Nhập mật khẩu",
+//            "password_old.required" => "Nhập xác nhận mật khẩu",
+//            "password_old.same" => "Xác nhận mật khẩu chưa khớp",
+//
 //        ]);
-//       return $request;
-        $validator = Validator::make($request->all(), [
-            "status_id" => "required",
-            "username" => "required",
-            "name" => "required",
-            "email" => "required|email",
-            "departments_id" => "required",
-            "password" => "required",
-            "password_old" => "required|same:password",
+//        if ($validator->fails()) {
+//            return response()->json([
+//                'message' => array_combine($validator->errors()->keys(), $validator->errors()->all()),
+//                'status_code' => StatusCode::BAD_REQUEST
+//            ], StatusCode::OK);
+//        }
+        $this->user->status_id = $request->status_id;
+        $this->user->departments_id = $request->departments_id;
+        $this->user->username = $request->username;
+        $this->user->name = $request->name;
+        $this->user->email = $request->email;
+        $this->user->password = $request->password;
+        $this->user->password_old = $request->password_old;
+        if ($this->user->save()) {
 
-        ], [
-            "status_id.required" => "Nhập tình trạng",
-            "username.required" => "Nhập tên tài khoản",
-            "name.required" => "Nhập họ và tên",
-            "email.required" => "Nhập email",
-            "email.email" => "Email không hợp lệ",
-            "departments_id.required" => "Nhập phòng ban",
-            "password.required" => "Nhập mật khẩu",
-            "password_old.required" => "Nhập xác nhận mật khẩu",
-            "password_old.same" => "Xác nhận mật khẩu chưa khớp",
-
-        ]);
-        if ($validator->fails()) {
-            return response()->json([
-                'message' => array_combine($validator->errors()->keys(), $validator->errors()->all()),
-                'status_code' => StatusCode::BAD_REQUEST
-            ], StatusCode::OK);
         }
         return $request;
     }
