@@ -67,7 +67,7 @@ class UserController extends BaseController
      */
     public function store(Request $request)
     {
-        //
+       return $request;
     }
 
     /**
