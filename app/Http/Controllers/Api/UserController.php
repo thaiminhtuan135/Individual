@@ -139,7 +139,11 @@ class UserController extends BaseController
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+
+        return response()->json([
+            'user' => $user,
+        ],StatusCode::OK);
     }
 
     /**
