@@ -143,7 +143,7 @@ class UserController extends BaseController
 
         return response()->json([
             'user' => $user,
-        ],StatusCode::OK);
+        ], StatusCode::OK);
     }
 
     /**
@@ -155,9 +155,20 @@ class UserController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
-
-        return $user;
+        $user = $this->user->where('id', $id)->first();
+        $user->status_id = $request->status_id;
+        $user->department_id = $request->department_id;
+        $user->username = $request->username;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        if ($user->save()) {
+            return response()->json([
+                'success' => true,
+            ]);
+        }
+        return response()->json([
+            'success' => false,
+        ]);
     }
 
     /**
@@ -168,23 +179,17 @@ class UserController extends BaseController
      */
     public function destroy($id)
     {
-        //
-    }
-
-    public function handleSelect(Request $request)
-    {
-        $id = $request->id;
-        $insuranceContract = $this->insuranceContract->getInsuranceContract($id);
-
-        if ($insuranceContract) {
+        $user = $this->user->where('id', $id)->first();
+        if ($user->delete()) {
             return response()->json([
-                'insuranceContract' => $insuranceContract,
-            ], StatusCode::OK);
-        }
+                'success' => true,
 
+            ]);
+        }
         return response()->json([
             'success' => false,
-        ], StatusCode::BAD_REQUEST);
+
+        ]);
     }
 
 }
