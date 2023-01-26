@@ -155,7 +155,9 @@ class UserController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+
+        return $user;
     }
 
     /**
