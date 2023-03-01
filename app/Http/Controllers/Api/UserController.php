@@ -180,15 +180,18 @@ class UserController extends BaseController
     public function destroy($id)
     {
         $user = $this->user->where('id', $id)->first();
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+            ]);
+        }
         if ($user->delete()) {
             return response()->json([
                 'success' => true,
-
             ]);
         }
         return response()->json([
             'success' => false,
-
         ]);
     }
 

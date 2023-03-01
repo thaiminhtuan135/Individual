@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\StatusCode;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends BaseController
 {
@@ -22,8 +26,14 @@ class AuthController extends BaseController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login()
+    public function login(Request $request)
     {
+
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
         $credentials = request(['email', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {

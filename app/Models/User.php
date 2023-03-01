@@ -11,8 +11,6 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use HasApiTokens, HasFactory, Notifiable;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -20,9 +18,16 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $fillable = [
         'name',
+        'avatar',
+        'username',
         'email',
         'password',
+        'department_id',
+        'status_id',
+
     ];
+
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that should be hidden for serialization.
@@ -63,4 +68,10 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+//    public function status()
+//    {
+//        return $this->belongsTo(Status::class, 'status_id', 'id');
+//    }
+
 }
