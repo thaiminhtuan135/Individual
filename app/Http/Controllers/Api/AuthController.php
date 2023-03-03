@@ -7,6 +7,8 @@ use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends BaseController
@@ -75,6 +77,7 @@ class AuthController extends BaseController
         return $this->respondWithToken(auth()->refresh());
     }
 
+
     /**
      * Get the token array structure.
      *
@@ -93,4 +96,5 @@ class AuthController extends BaseController
             'email' => auth()->user()->email,
         ]);
     }
+
 }
