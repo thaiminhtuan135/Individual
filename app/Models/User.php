@@ -24,7 +24,6 @@ class User extends Authenticatable implements JWTSubject
         'password',
         'department_id',
         'status_id',
-
     ];
 
     use HasApiTokens, HasFactory, Notifiable;

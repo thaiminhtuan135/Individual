@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -35,5 +36,6 @@ Route::group([
 
     Route::post('register', [UserController::class, 'register']);
     Route::resource('user', UserController::class);
+    Route::resource('transaction', TransactionController::class);
 
 });
