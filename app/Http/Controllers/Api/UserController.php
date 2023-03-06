@@ -222,15 +222,18 @@ class UserController extends BaseController
 
     public function logout(Request $request)
     {
-        $validator = Validator::make($request->only('token'), [
-            'token' => 'required'
-        ]);
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->messages()], 200);
-        }
+//        $validator = Validator::make($request->only('token'), [
+//            'token' => 'required'
+//        ]);
+//        if ($validator->fails()) {
+//            return response()->json(['error' => $validator->messages()], 200);
+//        }
 
+        $request->validate([
+            'token' => 'required',
+        ]);
         try {
-            auth()->logout();
+//            auth()->logout();
             return response()->json([
                 'success' => true,
                 'message' => 'User has been logged out',
