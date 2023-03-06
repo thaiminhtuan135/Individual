@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 //Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //    return $request->user();
 //});
-
+//Route::post('login', [AuthController::class, 'login']);
 Route::group([
 
     'middleware' => 'api',
@@ -29,12 +29,13 @@ Route::group([
 ], function ($router) {
 
     Route::post('login', [AuthController::class, 'login']);
-    Route::post('logout', [AuthController::class, 'logout']);
+//    Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
 //    Route::get('register', [AuthController::class, 'register']);
 
     Route::post('register', [UserController::class, 'register']);
+    Route::post('logout', [UserController::class, 'logout']);
     Route::resource('user', UserController::class);
     Route::resource('transaction', TransactionController::class);
 

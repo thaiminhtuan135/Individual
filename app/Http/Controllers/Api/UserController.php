@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use JWTAuth;
 use function Termwind\renderUsing;
 
 class UserController extends BaseController
@@ -215,5 +218,30 @@ class UserController extends BaseController
 
         DB::table('users')->insert($data);
         return response()->json(['success' => 'true'], StatusCode::OK);
+    }
+
+    public function logout(Request $request)
+    {
+        $validator = Validator::make($request->only('token'), [
+            'token' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->messages()], 200);
+        }
+
+        try {
+            auth()->logout();
+            return response()->json([
+                'success' => true,
+                'message' => 'User has been logged out',
+                'token' => $request->token,
+            ]);
+        } catch (JWTException $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, user cannot be logged out'
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+        return response()->json(['message' => 'Successfully logged out']);
     }
 }
